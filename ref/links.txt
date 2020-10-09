@@ -1,5 +1,6 @@
 Lógica Fuzzy ou Nebulosa com exemplo em Python:
     - https://www.youtube.com/watch?v=ZLLbZLcCTcI
+    - https://colab.research.google.com/drive/13nqdB-kHLIMUxemuQJfnV1bqrLzM3hPS
 Fuzzy Logic - Computerphile:
     - https://www.youtube.com/watch?v=r804UF8Ia4c
 An Egg-Boiling Fuzzy Logic Robot:
