@@ -3,7 +3,7 @@ from skfuzzy import interp_membership
 from consequents import disease
 
 
-def inform_humanized_diagnosis(result):
+def inform_diagnosis(result):
     disease_names = list(disease.terms.keys())
 
     print()
