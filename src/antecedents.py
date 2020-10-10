@@ -40,3 +40,28 @@ def get_muscle_pain_antecedents():
     muscle_pain_frequency['high'] = fuzzy.trimf(muscle_pain_frequency.universe, [1, 2, 3])
 
     return muscle_pain_frequency
+
+
+def get_joint_pain_antecedents():
+    frequency = control.Antecedent(arange(0, 10, .1), 'joint_pain_freq')
+    intensity = control.Antecedent(arange(0, 10, .1), 'joint_pain_intensity')
+    edema = control.Antecedent(arange(0, 10, .1), 'joint_edema')
+    edema_intensity = control.Antecedent(arange(0, 10, .1), 'joint_edema_intensity')
+
+    frequency['rare'] = fuzzy.gaussmf(frequency.universe, 0, 1.5)
+    frequency['common'] = fuzzy.gaussmf(frequency.universe, 5, .75)
+    frequency['frequent'] = fuzzy.gaussmf(frequency.universe, 10, 1.5)
+
+    intensity['mild'] = fuzzy.gaussmf(intensity.universe, 0, 1.5)
+    intensity['moderate'] = fuzzy.gaussmf(intensity.universe, 5, .75)
+    intensity['intense'] = fuzzy.gaussmf(intensity.universe, 10, 1.5)
+
+    edema['rare'] = fuzzy.gaussmf(edema.universe, 0, 1.5)
+    edema['common'] = fuzzy.gaussmf(edema.universe, 5, .75)
+    edema['frequent'] = fuzzy.gaussmf(edema.universe, 10, 1.5)
+
+    edema_intensity['mild'] = fuzzy.gaussmf(edema_intensity.universe, 0, 1.5)
+    edema_intensity['moderate'] = fuzzy.gaussmf(edema_intensity.universe, 5, .75)
+    edema_intensity['intense'] = fuzzy.gaussmf(edema_intensity.universe, 10, 1.5)
+
+    return [frequency, intensity, edema, edema_intensity]
