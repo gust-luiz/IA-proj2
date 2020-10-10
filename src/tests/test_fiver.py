@@ -2,10 +2,12 @@ from skfuzzy import control
 
 from src.rules import get_fiver_rules
 from .class_test import ReferenceDiagnosisTest
-
-FOR_SURE_LEVEL = 65
+from src.consequents import disease
 
 class TestFiverDiagnosis(ReferenceDiagnosisTest):
+    output = disease
+    output_name = 'doenças'
+
     def setUp(self):
         aedes_aegypti_diagnosis = control.ControlSystem(get_fiver_rules())
         self.medical_record = control.ControlSystemSimulation(aedes_aegypti_diagnosis)
@@ -17,7 +19,7 @@ class TestFiverDiagnosis(ReferenceDiagnosisTest):
         best_diagonis = self._get_best_diagnosis()
 
         self.assertEqual(best_diagonis[0], 'Dengue')
-        self.assertGreaterEqual(best_diagonis[1], FOR_SURE_LEVEL)
+        self.assertGreaterEqual(best_diagonis[1], self.FOR_SURE_LEVEL)
 
     def test_should_be_zika(self):
         self.medical_record.input['temperatura'] = 35.7
@@ -26,7 +28,7 @@ class TestFiverDiagnosis(ReferenceDiagnosisTest):
         best_diagonis = self._get_best_diagnosis()
 
         self.assertEqual(best_diagonis[0], 'Zika')
-        self.assertGreaterEqual(best_diagonis[1], FOR_SURE_LEVEL)
+        self.assertGreaterEqual(best_diagonis[1], self.FOR_SURE_LEVEL)
 
     def test_should_be_chikungunya(self):
         self.medical_record.input['temperatura'] = 39.7
@@ -35,15 +37,15 @@ class TestFiverDiagnosis(ReferenceDiagnosisTest):
         best_diagonis = self._get_best_diagnosis()
 
         self.assertEqual(best_diagonis[0], 'Chikungunya')
-        self.assertGreaterEqual(best_diagonis[1], FOR_SURE_LEVEL)
+        self.assertGreaterEqual(best_diagonis[1], self.FOR_SURE_LEVEL)
 
     def test_could_be_dengue_or_chikungunya(self):
         self.medical_record.input['temperatura'] = 38
         self.medical_record.input['duração da febre'] = 4
 
         expected = {
-            'Dengue': (30, FOR_SURE_LEVEL),
-            'Chikungunya': (30, FOR_SURE_LEVEL),
+            'Dengue': (30, self.FOR_SURE_LEVEL),
+            'Chikungunya': (30, self.FOR_SURE_LEVEL),
             'Zika': (0, 10),
         }
 

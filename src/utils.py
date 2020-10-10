@@ -6,19 +6,20 @@ from consequents import disease
 
 
 def inform_diagnosis(result):
-    diagnosis = order_diagnosis(result)
+    diagnosis = order_diagnosis(disease, result)
 
     print()
     print('Então, pelo o que me foi informado acredito que esteja com:', diagnosis[0][0])
     print()
 
     print('Diagnóstico completo:')
-    for disease, percent in diagnosis:
+    for disease_name, percent in diagnosis:
         print(''.join([
-            '\t', disease, ': ', str(percent), ' %'
+            '\t', disease_name, ': ', str(percent), ' %'
         ]))
 
-def order_diagnosis(result):
+
+def order_diagnosis(disease, result):
     diagnosis = {}
 
     for name in list(disease.terms.keys()):
