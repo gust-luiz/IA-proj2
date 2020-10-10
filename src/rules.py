@@ -45,6 +45,29 @@ def get_melasma_rules():
     ]
 
 
+def get_muscle_pain_rules():
+    from consequents import disease
+    from antecedents import get_muscle_pain_antecedents
+
+    frequency = get_muscle_pain_antecedents()
+
+    return [
+        control.Rule(
+            frequency['low'],
+            disease['dengue']
+        ),
+        control.Rule(
+            frequency['medium'],
+            disease['zika']
+        ),
+        control.Rule(
+            frequency['high'],
+            disease['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fiver_rules())
 all_rules.extend(get_melasma_rules())
+all_rules.extend(get_muscle_pain_rules())
