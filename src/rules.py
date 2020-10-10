@@ -103,8 +103,34 @@ def get_joint_pain_rules(use_common_consequent=True):
     ]
 
 
+def get_headache_rules():
+    from consequents import disease
+    from antecedents import get_headache_antecedents
+
+    frequency, intensity = get_headache_antecedents()
+
+    return [
+        control.Rule(
+            frequency['high'] &
+            intensity['high'],
+            disease['dengue']
+        ),
+        control.Rule(
+            frequency['medium'] &
+            intensity['medium'],
+            disease['zika']
+        ),
+        control.Rule(
+            frequency['medium'] &
+            intensity['medium'],
+            disease['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fiver_rules())
 all_rules.extend(get_melasma_rules())
 all_rules.extend(get_muscle_pain_rules())
 all_rules.extend(get_joint_pain_rules())
+all_rules.extend(get_headache_rules())
