@@ -40,16 +40,23 @@ def ask_about_muscle_pain(medical_record):
         resp = input()
 
         if resp == 'não':
-            medical_record.input['muscle_pain'] = 0
+            medical_record.input['muscle_pain_frequency'] = 0
             return medical_record
 
         if resp == 'sim':
             break
 
-    print('Entre 1 (pouco frequente) e 3 (muito frequente), qual foi a frequência com que sentiu dores musculares? (1/2/3)')
-    resp = int(input())
+    print('Já que teve dores musculares, infelizmente, poderia dizer se doia com frequência?')
 
-    medical_record.input['muscle_pain'] = resp
+    while True:
+        print('Numa escala de 1 (pouco frequente) a 10 (muito frequente), por favor')
+        resp = int(input())
+
+        if resp >= 1 and resp <= 10:
+            medical_record.input['muscle_pain_frequency'] = resp
+            break
+        else:
+            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
 
     return medical_record
 
@@ -83,7 +90,7 @@ def ask_about_joint_pain(medical_record):
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
 
     print('Obrigado! Prosseguindo, então')
-    print('E quanto à intensidada, doia muito?')
+    print('E quanto à intensidade, doia muito?')
 
     while True:
         print('Numa escala de 1 (bastante fraca) a 10 (muito forte), por favor')
@@ -102,7 +109,7 @@ def ask_about_joint_pain(medical_record):
         print('Numa escala de 0 (não apareceu) a 10 (tinha por todo o corpo), por favor')
         resp = int(input())
 
-        if resp >= 1 and resp <= 10:
+        if resp >= 0 and resp <= 10:
             medical_record.input['joint_edema'] = resp
             break
         else:
@@ -121,6 +128,47 @@ def ask_about_joint_pain(medical_record):
 
         if resp >= 1 and resp <= 10:
             medical_record.input['joint_edema_intensity'] = resp
+            break
+        else:
+            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+
+    return medical_record
+
+
+def ask_about_headache(medical_record):
+    while True:
+        print('Sentiu dor de cabeça durante a última semana? (sim/não)')
+        resp = input()
+
+        if resp == 'não':
+            medical_record.input['headache_frequency'] = 0
+            medical_record.input['headache_intensity'] = 0
+            return medical_record
+
+        if resp == 'sim':
+            break
+
+    print('Já que teve dores dores de cabeça, infelizmente, poderia dizer se doia com frequência?')
+
+    while True:
+        print('Numa escala de 1 (pouco frequente) a 10 (muito frequente), por favor')
+        resp = int(input())
+
+        if resp >= 1 and resp <= 10:
+            medical_record.input['headache_frequency'] = resp
+            break
+        else:
+            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+
+    print('Obrigado! Prosseguindo, então')
+    print('E quanto à intensidade da dor de cabeça, doia muito?')
+
+    while True:
+        print('Numa escala de 1 (bastante fraca) a 10 (muito forte), por favor')
+        resp = int(input())
+
+        if resp >= 1 and resp <= 10:
+            medical_record.input['headache_intensity'] = resp
             break
         else:
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
