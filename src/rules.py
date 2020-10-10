@@ -67,7 +67,44 @@ def get_muscle_pain_rules():
     ]
 
 
+def get_joint_pain_rules(use_common_consequent=True):
+    from antecedents import get_joint_pain_antecedents
+
+    if use_common_consequent:
+        from consequents import disease as joint_pain
+    else:
+        from consequents import get_joint_pain_consequent
+        joint_pain = get_joint_pain_consequent()
+
+    frequency, intensity, edema, edema_intensity = get_joint_pain_antecedents()
+
+    return [
+        control.Rule(
+            frequency['rare'] &
+            intensity['mild'] &
+            edema['rare'] &
+            edema_intensity['mild'],
+            joint_pain['dengue']
+        ),
+        control.Rule(
+            frequency['common'] &
+            (intensity['mild'] | intensity['moderate']) &
+            edema['frequent'] &
+            edema_intensity['mild'],
+            joint_pain['zika']
+        ),
+        control.Rule(
+            frequency['frequent'] &
+            (intensity['moderate'] | intensity['intense']) &
+            edema['frequent'] &
+            (edema_intensity['moderate'] | intensity['intense']),
+            joint_pain['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fiver_rules())
 all_rules.extend(get_melasma_rules())
 all_rules.extend(get_muscle_pain_rules())
+all_rules.extend(get_joint_pain_rules())
