@@ -1,6 +1,6 @@
 from skfuzzy import control
 
-from humanized_questions import ask_about_fiver, ask_about_melasma, ask_about_muscle_pain
+from humanized_questions import ask_about_fiver, ask_about_melasma, ask_about_muscle_pain, ask_about_joint_pain
 from rules import all_rules
 from utils import inform_diagnosis
 
@@ -12,6 +12,7 @@ def run_system():
     medical_record = ask_about_fiver(medical_record)
     medical_record = ask_about_melasma(medical_record)
     medical_record = ask_about_muscle_pain(medical_record)
+    medical_record = ask_about_joint_pain(medical_record)
 
     medical_record.compute()
 
