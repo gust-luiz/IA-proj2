@@ -30,3 +30,13 @@ def get_melasma_antecedents():
     melasma_occurence['middle'] = fuzzy.trimf(melasma_occurence.universe, [4, 5, 6])
 
     return melasma_when, melasma_occurence
+
+
+def get_muscle_pain_antecedents():
+    muscle_pain_frequency = control.Antecedent(arange(0, 3, 1), 'muscle_pain')
+
+    muscle_pain_frequency['low'] = fuzzy.trimf(muscle_pain_frequency.universe, [0, 1, 1])
+    muscle_pain_frequency['medium'] = fuzzy.trimf(muscle_pain_frequency.universe, [0, 2, 3])
+    muscle_pain_frequency['high'] = fuzzy.trimf(muscle_pain_frequency.universe, [1, 2, 3])
+
+    return muscle_pain_frequency
