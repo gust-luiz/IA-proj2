@@ -37,31 +37,45 @@ def order_diagnosis(disease, result):
     return list(diagnosis.items())
 
 
-def wait_valid_answer(question, valid_answers=None, min_value=None, cast_to=None):
-    options = '/'.join(valid_answers) if valid_answers else ''
+def wait_valid_answer(question, valid_answers=None, min_value=None, max_value=None, cast_to=None):
+    if valid_answers:
+        options = '/'.join(valid_answers)
+    elif min_value:
+        options = ' - '.join([str(min_value), str(max_value) or 'inf'])
+    else:
+        options = ''
+
+    if options:
+        options = f'({options})'
 
     while True:
         print(question, options)
         resp = input()
 
-        if cast_to:
-            resp = cast_to(resp)
+        try:
+            if cast_to:
+                resp = cast_to(resp.replace(',', '.'))
+        except:
+            print('Infelizmente nesta resposta não entendi o que escreveu...')
+            continue
 
         if ((valid_answers and resp not in valid_answers) or
                 (min_value and resp <= min_value)):
             print('Infelizmente nesta resposta não entendi o que escreveu...')
+            print('Lembre-se que as respostas válidas são', options)
+            print()
             continue
 
+        print()
         return resp
 
 
 def wait_any_key_press(msg=''):
-    print()
     input(msg or 'Aperte ENTER para prosseguirmos...')
 
 
 def get_consultation_section_title(patient, section):
-    line_sz = 35
+    line_sz = 50
 
     system('clear')
 

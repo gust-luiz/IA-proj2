@@ -37,7 +37,7 @@ def run_system():
 
     medical_record.compute()
 
-    # inform_diagnosis(medical_record.output['doenças'])
+    inform_diagnosis(medical_record.output['doenças'])
 
 
 if __name__ == '__main__':

@@ -15,7 +15,8 @@ def initial_questionary(medical_record):
     print('Como você se chama?')
     patient.name = input()
 
-    print('\nÉ um prazer lhe atender,', patient.name)
+    print('\nÉ um prazer lhe atender,', patient.name, '!')
+    print()
 
     if wait_valid_answer('Ou está acompanhando alguém?', ['sim', 'não']) == 'sim':
         print('Entendo, então como ele se chama?')
@@ -36,21 +37,36 @@ def initial_questionary(medical_record):
 
     medical_record.input['neurological_damage_newborn'] = int(not patient.age)
 
-    print('Obrigado, podemos começar a consulta!')
+    print('\nObrigado, podemos começar a consulta!')
     wait_any_key_press()
 
     return patient, medical_record
 
 
 def ask_about_fever(medical_record):
+    if wait_valid_answer('Em algum momento nesta última semana, sentiu febre?', ['sim', 'não']) == 'não':
+        medical_record.input['body_temperature'] = 36.5
+        medical_record.input['fever_duration'] = 0
 
-    print('Poderia nos informar a sua temperatura?')
-    resp = float(input().replace(',', '.'))
-    medical_record.input['body_temperature'] = resp
+        print('Ainda bem que não teve, menos um sinal de problemas, não é mesmo?')
 
-    print('E por quantos dias?')
-    resp = int(input())
-    medical_record.input['fever_duration'] = resp
+        return medical_record
+
+    print('Já que teve febre nesta última semana')
+    medical_record.input['body_temperature'] = wait_valid_answer(
+        'Poderia nos informar quanto estava sua temperatura quando foi aferida, medida, no termômetro?',
+        min_value=36.5,
+        max_value=40.9,
+        cast_to=float
+    )
+
+    print('Entendi.')
+    medical_record.input['fever_duration'] = wait_valid_answer(
+        'E poderia nos informar por quantos dias seguidos esteve com febre?',
+        min_value=0,
+        max_value=7,
+        cast_to=int
+    )
 
     return medical_record
 
