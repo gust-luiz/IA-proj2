@@ -92,28 +92,20 @@ def ask_about_melasma(medical_record, section):
 
 
 def ask_about_muscle_pain(medical_record, section):
-    while True:
-        print('Sentiu dor muscular durante a última semana? (sim/não)')
-        resp = input()
+    if wait_valid_answer('Em algum momento nesta última semana, sentiu alguma dor muscular?', ['sim', 'não']) == 'não':
+        medical_record.input['muscle_pain_frequency'] = 0
 
-        if resp == 'não':
-            medical_record.input['muscle_pain_frequency'] = 0
-            return medical_record
+        print(NO_SYMPTOMS_MSG.format(section))
 
-        if resp == 'sim':
-            break
+        return medical_record
 
-    print('Já que teve dores musculares, infelizmente, poderia dizer se doia com frequência?')
-
-    while True:
-        print('Numa escala de 1 (pouco frequente) a 10 (muito frequente), por favor')
-        resp = int(input())
-
-        if resp >= 1 and resp <= 10:
-            medical_record.input['muscle_pain_frequency'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+    print('E já que teve dores musculares,')
+    medical_record.input['muscle_pain_frequency'] = wait_valid_answer(
+        'Poderia dizer se doia com frequência, numa escala de "pouco frequente" a "muito frequente"?',
+        min_value=1,
+        max_value=10,
+        cast_to=int
+    )
 
     return medical_record
 

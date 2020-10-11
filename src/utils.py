@@ -60,7 +60,8 @@ def wait_valid_answer(question, valid_answers=None, min_value=None, max_value=No
             continue
 
         if ((valid_answers and resp not in valid_answers) or
-                (min_value and resp <= min_value)):
+                (min_value and resp < min_value) or
+                (max_value and resp > max_value)):
             print('Infelizmente nesta resposta não entendi o que escreveu...')
             print('Lembre-se que as respostas válidas são', options)
             print()
