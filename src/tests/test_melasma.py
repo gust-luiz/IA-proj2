@@ -32,19 +32,3 @@ class TestMelasmaDiagnosis(ReferenceDiagnosisTest):
         best_diagonis = self._get_best_diagnosis()
 
         self.assertEqual(best_diagonis[0], 'Chikungunya')
-
-    # def test_could_be_dengue_or_chikungunya(self):
-    #     self.medical_record.input['temperatura'] = 38
-    #     self.medical_record.input['duração da febre'] = 4
-
-    #     expected = {
-    #         'Dengue': (30, self.FOR_SURE_LEVEL),
-    #         'Chikungunya': (30, self.FOR_SURE_LEVEL),
-    #         'Zika': (0, 10),
-    #     }
-
-    #     with self.subTest():
-    #         for disease, perc in self._get_diagnosis():
-    #             print('disease', disease)
-    #             self.assertGreaterEqual(perc, expected[disease][0])
-    #             self.assertLessEqual(perc, expected[disease][1])

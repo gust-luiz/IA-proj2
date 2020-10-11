@@ -3,28 +3,28 @@ from numpy import arange
 from skfuzzy import control
 
 
-def get_fiver_antecedents():
-    fever_temperature = control.Antecedent(arange(30, 41, .1), 'temperatura')
-    fever_duration = control.Antecedent(arange(0, 7, 1), 'duração da febre')
+def get_fever_antecedents():
+    temperature = control.Antecedent(arange(30, 41, .1), 'body_temperature')
+    duration = control.Antecedent(arange(0, 7, 1), 'fever_duration')
 
-    fever_temperature['normal'] = fuzzy.gaussmf(fever_temperature.universe, 30, 4)
-    fever_temperature['feverish'] = fuzzy.gaussmf(fever_temperature.universe, 40, 3)
+    temperature['normal'] = fuzzy.gaussmf(temperature.universe, 30, 4)
+    temperature['feverish'] = fuzzy.gaussmf(temperature.universe, 40, 3)
 
-    fever_duration['short'] = fuzzy.trapmf(fever_duration.universe, [0, 0, 2, 3])
-    fever_duration['medium'] = fuzzy.trapmf(fever_duration.universe, [1, 2, 3, 4])
-    fever_duration['long'] = fuzzy.trapmf(fever_duration.universe, [3, 4, 7, 7])
+    duration['short'] = fuzzy.trapmf(duration.universe, [0, 0, 2, 3])
+    duration['medium'] = fuzzy.trapmf(duration.universe, [1, 2, 3, 4])
+    duration['long'] = fuzzy.trapmf(duration.universe, [3, 4, 7, 7])
 
-    return fever_temperature, fever_duration
+    return temperature, duration
 
 
 def get_melasma_antecedents():
-    melasma_when = control.Antecedent(arange(0, 7, .1), 'melasma')
+    when = control.Antecedent(arange(0, 7, .1), 'melasma')
 
-    melasma_when['beginning'] = fuzzy.gbellmf(melasma_when.universe, 2, 5, 0)
-    melasma_when['middle'] = fuzzy.gbellmf(melasma_when.universe, 1.2, 5, 3.5)
-    melasma_when['ending'] = fuzzy.gbellmf(melasma_when.universe, 2, 5, 7)
+    when['beginning'] = fuzzy.gbellmf(when.universe, 2, 5, 0)
+    when['middle'] = fuzzy.gbellmf(when.universe, 1.2, 5, 3.5)
+    when['ending'] = fuzzy.gbellmf(when.universe, 2, 5, 7)
 
-    return melasma_when
+    return when
 
 
 def get_muscle_pain_antecedents():

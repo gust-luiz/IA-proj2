@@ -1,19 +1,18 @@
-def ask_about_fiver(medical_record):
+def ask_about_fever(medical_record):
 
     print('Poderia nos informar a sua temperatura?')
     resp = float(input().replace(',', '.'))
-    medical_record.input['temperatura'] = resp
+    medical_record.input['body_temperature'] = resp
 
     print('E por quantos dias?')
     resp = int(input())
-    medical_record.input['duração da febre'] = resp
+    medical_record.input['fever_duration'] = resp
 
     return medical_record
 
 
 def ask_about_melasma(medical_record):
-    from random import randint
-    while(True):
+    while True:
         print('Apareceram algumas manchas na sua pele na última semana? (sim/não)')
         resp = input()
 

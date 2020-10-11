@@ -1,11 +1,11 @@
 from skfuzzy import control
 
 
-def get_fiver_rules():
+def get_fever_rules():
     from consequents import disease
-    from antecedents import get_fiver_antecedents
+    from antecedents import get_fever_antecedents
 
-    temperature, duration = get_fiver_antecedents()
+    temperature, duration = get_fever_antecedents()
 
     return [
         control.Rule(
@@ -128,7 +128,7 @@ def get_headache_rules():
 
 
 all_rules = []
-all_rules.extend(get_fiver_rules())
+all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
 all_rules.extend(get_muscle_pain_rules())
 all_rules.extend(get_joint_pain_rules())
