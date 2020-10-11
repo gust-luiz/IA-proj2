@@ -154,7 +154,7 @@ def ask_about_headache(medical_record):
         if resp == 'sim':
             break
 
-    print('Já que teve dores dores de cabeça, infelizmente, poderia dizer se doia com frequência?')
+    print('Já que teve dores de cabeça, infelizmente, poderia dizer se doia com frequência?')
 
     while True:
         print('Numa escala de 1 (pouco frequente) a 10 (muito frequente), por favor')
@@ -202,6 +202,33 @@ def ask_about_itch(medical_record):
 
         if resp >= 1 and resp <= 10:
             medical_record.input['itch_intensity'] = resp
+            break
+        else:
+            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+
+    return medical_record
+
+
+def ask_about_ganglionic_hypertrophy(medical_record):
+    while True:
+        print('Observou o aparecimento de caroços (ínguas), principalmente na região do pescoço, durante a última semana? (sim/não)')
+        resp = input()
+
+        if resp == 'não':
+            medical_record.input['ganglionic_hypertrophy_frequency'] = 0
+            return medical_record
+
+        if resp == 'sim':
+            break
+
+    print('Já que notou o aparecimento de caroços (ínguas), poderia dizer com que frequência apareciam?')
+
+    while True:
+        print('Numa escala de 1 (poucas vezes) a 10 (constantemente), por favor')
+        resp = int(input())
+
+        if resp >= 1 and resp <= 10:
+            medical_record.input['ganglionic_hypertrophy_frequency'] = resp
             break
         else:
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
