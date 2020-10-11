@@ -206,28 +206,19 @@ def ask_about_headache(medical_record, section):
 
 
 def ask_about_itch(medical_record, section):
-    while True:
-        print('Sentiu coceira na pele durante a última semana? (sim/não)')
-        resp = input()
+    if wait_valid_answer('Em algum momento nesta última semana, teve coceira?', ['sim', 'não']) == 'não':
+        medical_record.input['itch_intensity'] = 0
 
-        if resp == 'não':
-            medical_record.input['itch_intensity'] = 0
-            return medical_record
+        print(NO_SYMPTOMS_MSG.format(section))
 
-        if resp == 'sim':
-            break
+        return medical_record
 
-    print('Já que teve coceira, poderia dizer qual era a intensidade?')
-
-    while True:
-        print('Numa escala de 1 (bastante fraca) a 10 (muito forte), por favor')
-        resp = int(input())
-
-        if resp >= 1 and resp <= 10:
-            medical_record.input['itch_intensity'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+    medical_record.input['itch_intensity'] = wait_valid_answer(
+        'E coçou muito, numa escala "bastante fraca" a "muito forte"?',
+        min_value=1,
+        max_value=10,
+        cast_to=int
+    )
 
     return medical_record
 
