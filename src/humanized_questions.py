@@ -171,3 +171,12 @@ def ask_about_headache(medical_record):
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
 
     return medical_record
+
+
+def ask_about_conjuctivitis(medical_record):
+    print('Sabe informar se estava com conjuntivite? (sim/não)')
+    resp = input()
+
+    medical_record.input['conjunctivitis'] = 0 if resp == 'não' else 1
+
+    return medical_record
