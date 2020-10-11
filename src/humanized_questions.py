@@ -1,3 +1,47 @@
+from os import system
+
+from utils import Patient, wait_valid_answer, wait_any_key_press
+
+
+def initial_questionary(medical_record):
+    system('clear')
+    patient = Patient()
+
+    print('Olá, seja bem-vindo(a) à consulta com o Dr. Lewis Zimmerman!')
+    print('''\nTentarei lhe ajudar a diagnosticar, identificar, se possui ou não
+    alguma das doenças transmitidas pelo mosquito aedes aegypti, o mosquito da dengue.''')
+
+    print('\nDesculpe pela minha grosseria, nem perguntei o seu nome.')
+    print('Como você se chama?')
+    patient.name = input()
+
+    print('\nÉ um prazer lhe atender', patient.name)
+
+    if wait_valid_answer('Ou está acompanhando alguém?', ['sim', 'não']) == 'sim':
+        print('Entendo, então como ele se chama?')
+        patient.name2 = patient.name
+        patient.name = input()
+
+        patient.age = wait_valid_answer(
+            f'Então {patient.name2}, quantos anos inteiros {patient.name} tem?',
+            min_value=0,
+            cast_to=int
+        )
+    else:
+        patient.age = wait_valid_answer(
+            f'Então {patient.name}, quantos anos inteiros você tem?',
+            min_value=0,
+            cast_to=int
+        )
+
+    medical_record.input['neurological_damage_newborn'] = int(not patient.age)
+
+    print('Obrigado, podemos começar a consulta!')
+    wait_any_key_press()
+
+    return patient, medical_record
+
+
 def ask_about_fever(medical_record):
 
     print('Poderia nos informar a sua temperatura?')
