@@ -165,10 +165,16 @@ def ask_about_joint_pain(medical_record, section):
 
 
 def ask_about_conjuctivitis(medical_record, section):
-    print('Sabe informar se estava com conjuntivite? (sim/não)')
-    resp = input()
+    resp = wait_valid_answer(
+        'Em algum momento nesta última semana, teve conjuntivite?',
+        ['sim', 'não']
+    )
 
-    medical_record.input['conjunctivitis'] = 0 if resp == 'não' else 1
+    if resp == 'não':
+        print(NO_SYMPTOMS_MSG.format(section))
+        medical_record.input['conjunctivitis'] = 0
+    else:
+        medical_record.input['conjunctivitis'] = 1
 
     return medical_record
 
