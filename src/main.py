@@ -1,3 +1,4 @@
+import sys
 from skfuzzy import control
 
 from humanized_questions import (ask_about_conjuctivitis, ask_about_fever,
@@ -7,30 +8,34 @@ from humanized_questions import (ask_about_conjuctivitis, ask_about_fever,
                                  ask_about_muscle_pain,
                                  ask_about_neurological_damage, initial_questionary)
 from rules import all_rules
-from utils import inform_diagnosis
+from utils import inform_diagnosis, wait_any_key_press, get_consultation_section_title
 
 
 def run_system():
     aedes_aegypti_diagnosis = control.ControlSystem(all_rules)
     medical_record = control.ControlSystemSimulation(aedes_aegypti_diagnosis)
     questions_to_ask = [
-        ask_about_fever,
-        ask_about_melasma,
-        ask_about_muscle_pain,
-        ask_about_joint_pain,
-        ask_about_conjuctivitis,
-        ask_about_headache,
-        ask_about_itch,
-        ask_about_ganglionic_hypertrophy,
-        ask_about_neurological_damage,
+        ('febre', ask_about_fever),
+        ('manchas na pele', ask_about_melasma),
+        ('dor nos músculos', ask_about_muscle_pain),
+        ('dor nas juntas', ask_about_joint_pain),
+        ('conjuntivite', ask_about_conjuctivitis),
+        ('dor de cabeça', ask_about_headache),
+        ('coceira', ask_about_itch),
+        ('inchaço na região do pescoço', ask_about_ganglionic_hypertrophy),
+        ('sequelas neurológica', ask_about_neurological_damage),
     ]
 
     patient, medical_record = initial_questionary(medical_record)
 
-    # for questions in questions_to_ask:
-    #     medical_record = questions(medical_record)
+    for section, questions in questions_to_ask:
+        get_consultation_section_title(patient, section)
 
-    # medical_record.compute()
+        medical_record = questions(medical_record)
+
+        wait_any_key_press()
+
+    medical_record.compute()
 
     # inform_diagnosis(medical_record.output['doenças'])
 

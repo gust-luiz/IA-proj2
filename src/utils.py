@@ -3,6 +3,7 @@ from collections import OrderedDict
 from skfuzzy import interp_membership
 
 from consequents import disease
+from os import system
 
 
 class Patient:
@@ -53,5 +54,24 @@ def wait_valid_answer(question, valid_answers=None, min_value=None, cast_to=None
 
         return resp
 
+
 def wait_any_key_press(msg=''):
+    print()
     input(msg or 'Aperte ENTER para prosseguirmos...')
+
+
+def get_consultation_section_title(patient, section):
+    line_sz = 35
+
+    system('clear')
+
+    print('*' * line_sz)
+    print('* Doutor: Lewis Zimmerman'.ljust(line_sz - 2), '*')
+    print(f'* Paciente: {patient.name}'.ljust(line_sz - 2), '*')
+    print(f'* Idade: {patient.age}'.ljust(line_sz - 2), '*')
+
+    if patient.name2:
+        print(f'* Acompanhante: {patient.name2}'.ljust(line_sz - 2), '*')
+
+    print(f'* Perguntas sobre: {section}'.ljust(line_sz - 2), '*')
+    print('*' * line_sz)

@@ -15,7 +15,7 @@ def initial_questionary(medical_record):
     print('Como você se chama?')
     patient.name = input()
 
-    print('\nÉ um prazer lhe atender', patient.name)
+    print('\nÉ um prazer lhe atender,', patient.name)
 
     if wait_valid_answer('Ou está acompanhando alguém?', ['sim', 'não']) == 'sim':
         print('Entendo, então como ele se chama?')
