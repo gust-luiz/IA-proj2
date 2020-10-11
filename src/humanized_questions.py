@@ -224,16 +224,16 @@ def ask_about_itch(medical_record, section):
 
 
 def ask_about_ganglionic_hypertrophy(medical_record, section):
-    print('Percebeu o aparecimento de caroços (ínguas), principalmente na região do pescoço, durante a última semana?')
-    while True:
-        print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
-        resp = int(input())
+    medical_record.input['ganglionic_hypertrophy_frequency'] = wait_valid_answer(
+        '''Em algum momento nesta última semana, apareceu algum caroço ou inchaço perto do pescoço?
+        numa escala de "não apareceu" a "quase não tinha espaço livre"''',
+        min_value=0,
+        max_value=10,
+        cast_to=int
+    )
 
-        if resp >= 0 and resp <= 10:
-            medical_record.input['ganglionic_hypertrophy_frequency'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+    if not medical_record.input['ganglionic_hypertrophy_frequency']:
+        print(NO_SYMPTOMS_MSG.format(section))
 
     return medical_record
 
