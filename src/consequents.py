@@ -69,16 +69,6 @@ def get_joint_pain_consequent():
     return joint_pain
 
 
-def get_headache_consequent():
-    headache = control.Consequent(arange(0, 11, .1), 'diagnosis')
-
-    headache['dengue'] = fuzzy.gaussmf(headache.universe, 10, 1.5)
-    headache['zika'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
-    headache['chikungunya'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
-
-    return headache
-
-
 def get_conjunctivitis_consequent():
     conjunctivitis = control.Consequent(arange(0, 11, .1), 'diagnosis')
 
@@ -114,6 +104,16 @@ def get_conjunctivitis_consequent():
     ]
 
     return conjunctivitis
+
+
+def get_headache_consequent():
+    headache = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    headache['dengue'] = fuzzy.gaussmf(headache.universe, 10, 1.5)
+    headache['zika'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
+    headache['chikungunya'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
+
+    return headache
 
 
 def get_itch_consequent():

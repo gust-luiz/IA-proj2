@@ -132,6 +132,15 @@ def ask_about_joint_pain(medical_record):
     return medical_record
 
 
+def ask_about_conjuctivitis(medical_record):
+    print('Sabe informar se estava com conjuntivite? (sim/não)')
+    resp = input()
+
+    medical_record.input['conjunctivitis'] = 0 if resp == 'não' else 1
+
+    return medical_record
+
+
 def ask_about_headache(medical_record):
     while True:
         print('Sentiu dor de cabeça durante a última semana? (sim/não)')
@@ -169,15 +178,6 @@ def ask_about_headache(medical_record):
             break
         else:
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
-
-    return medical_record
-
-
-def ask_about_conjuctivitis(medical_record):
-    print('Sabe informar se estava com conjuntivite? (sim/não)')
-    resp = input()
-
-    medical_record.input['conjunctivitis'] = 0 if resp == 'não' else 1
 
     return medical_record
 

@@ -17,8 +17,8 @@ def run_system():
     medical_record = ask_about_melasma(medical_record)
     medical_record = ask_about_muscle_pain(medical_record)
     medical_record = ask_about_joint_pain(medical_record)
-    medical_record = ask_about_headache(medical_record)
     medical_record = ask_about_conjuctivitis(medical_record)
+    medical_record = ask_about_headache(medical_record)
     medical_record = ask_about_itch(medical_record)
 
     medical_record.compute()
