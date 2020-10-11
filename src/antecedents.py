@@ -18,18 +18,13 @@ def get_fiver_antecedents():
 
 
 def get_melasma_antecedents():
-    melasma_when = control.Antecedent(arange(0, 7, 1), 'melasma')
-    melasma_occurence = control.Antecedent(arange(0, 10, 1), 'melasma_occurence')
+    melasma_when = control.Antecedent(arange(0, 7, .1), 'melasma')
 
-    melasma_when['beginning'] = fuzzy.trapmf(melasma_when.universe, [0, 1, 2, 3])
-    melasma_when['middle'] = fuzzy.trimf(melasma_when.universe, [3, 4, 5])
-    melasma_when['all'] = fuzzy.trapmf(melasma_when.universe, [1, 2, 5, 7])
+    melasma_when['beginning'] = fuzzy.gbellmf(melasma_when.universe, 2, 5, 0)
+    melasma_when['middle'] = fuzzy.gbellmf(melasma_when.universe, 1.2, 5, 3.5)
+    melasma_when['ending'] = fuzzy.gbellmf(melasma_when.universe, 2, 5, 7)
 
-    melasma_occurence['uncommom'] = fuzzy.trapmf(melasma_occurence.universe, [2, 3, 5, 6])
-    melasma_occurence['for_sure'] = fuzzy.trapmf(melasma_occurence.universe, [8, 9, 10, 10])
-    melasma_occurence['middle'] = fuzzy.trimf(melasma_occurence.universe, [4, 5, 6])
-
-    return melasma_when, melasma_occurence
+    return melasma_when
 
 
 def get_muscle_pain_antecedents():

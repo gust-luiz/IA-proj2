@@ -16,6 +16,8 @@ def run_system():
 
     medical_record.compute()
 
+    print("output", medical_record.output)
+
     inform_diagnosis(medical_record.output['doenças'])
 
 

@@ -7,7 +7,6 @@ from src.consequents import get_joint_pain_consequent
 
 class TestJointPainDiagnosis(ReferenceDiagnosisTest):
     output = get_joint_pain_consequent()
-    output_name = 'joint_pain'
 
     def setUp(self):
         aedes_aegypti_diagnosis = control.ControlSystem(get_joint_pain_rules(False))

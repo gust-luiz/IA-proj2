@@ -5,7 +5,6 @@ from src.utils import order_diagnosis
 
 class ReferenceDiagnosisTest(TestCase):
     FOR_SURE_LEVEL = 60
-    output_name = None
     output = None
 
     def _get_diagnosis(self):
@@ -17,7 +16,7 @@ class ReferenceDiagnosisTest(TestCase):
 
         self.medical_record.compute()
 
-        return order_diagnosis(self.output, self.medical_record.output[self.output_name])
+        return order_diagnosis(self.output, self.medical_record.output['diagnosis'])
 
     def _get_best_diagnosis(self):
         return self._get_diagnosis()[0]

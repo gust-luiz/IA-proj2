@@ -24,24 +24,27 @@ def get_fiver_rules():
 
 
 def get_melasma_rules():
-    from consequents import disease
+    from consequents import get_melasma_consequent
     from antecedents import get_melasma_antecedents
 
-    when_happened, occurence = get_melasma_antecedents()
+    from_melasma = get_melasma_consequent()
+    when_happened = get_melasma_antecedents()
 
     return [
         control.Rule(
-            when_happened['middle'] & occurence['uncommom'],
-            disease['dengue']
+            when_happened['middle'],
+            from_melasma['dengue']
         ),
         control.Rule(
-            when_happened['beginning'] & occurence['for_sure'],
-            disease['zika']
+            when_happened['beginning'],
+            from_melasma['zika']
         ),
         control.Rule(
-            when_happened['all'] & occurence['middle'],
-            disease['chikungunya']
-        )
+            (when_happened['beginning'] &
+            when_happened['middle']) |
+            when_happened['ending'],
+            from_melasma['chikungunya']
+        ),
     ]
 
 
@@ -67,15 +70,11 @@ def get_muscle_pain_rules():
     ]
 
 
-def get_joint_pain_rules(use_common_consequent=True):
+def get_joint_pain_rules():
     from antecedents import get_joint_pain_antecedents
+    from consequents import get_joint_pain_consequent
 
-    if use_common_consequent:
-        from consequents import disease as joint_pain
-    else:
-        from consequents import get_joint_pain_consequent
-        joint_pain = get_joint_pain_consequent()
-
+    joint_pain = get_joint_pain_consequent()
     frequency, intensity, edema, edema_intensity = get_joint_pain_antecedents()
 
     return [
