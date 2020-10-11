@@ -33,9 +33,9 @@ def get_melasma_consequent():
 def get_muscle_pain_consequent():
     muscle_pain = control.Consequent(arange(0, 11, .1), 'diagnosis')
 
-    muscle_pain['dengue'] = fuzzy.gaussmf(muscle_pain.universe, 0, 1.5)
+    muscle_pain['dengue'] = fuzzy.gaussmf(muscle_pain.universe, 10, 1.5)
     muscle_pain['zika'] = fuzzy.gaussmf(muscle_pain.universe, 5, 1.5)
-    muscle_pain['chikungunya'] = fuzzy.gaussmf(muscle_pain.universe, 10, 1.5)
+    muscle_pain['chikungunya'] = fuzzy.gaussmf(muscle_pain.universe, 0, 1.5)
 
     return muscle_pain
 
@@ -55,10 +55,20 @@ def get_joint_pain_consequent():
 
 
 def get_headache_consequent():
-    headache = control.Consequent(arange(0, 11, .1), 'from headache')
+    headache = control.Consequent(arange(0, 11, .1), 'diagnosis')
 
-    headache['dengue'] = fuzzy.gaussmf(headache.universe, 0, 1.5)
+    headache['dengue'] = fuzzy.gaussmf(headache.universe, 10, 1.5)
     headache['zika'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
-    headache['chikungunya'] = fuzzy.gaussmf(headache.universe, 10, 1.5)
+    headache['chikungunya'] = fuzzy.gaussmf(headache.universe, 5, 1.5)
 
     return headache
+
+
+def get_itch_consequent():
+    itch = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    itch['dengue'] = fuzzy.gaussmf(itch.universe, 0, 1.5)
+    itch['zika'] = fuzzy.gaussmf(itch.universe, 5, 2.5)
+    itch['chikungunya'] = fuzzy.gaussmf(itch.universe, 5, 2.5)
+
+    return itch
