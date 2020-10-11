@@ -106,7 +106,7 @@ def get_ganglionic_hypertrophy_antecedents():
     return frequency
 
 
-def get_hemorrhagic_dyscrasia():
+def get_hemorrhagic_dyscrasia_antecedents():
     frequency = control.Antecedent(arange(0, 10, .1), 'hemorrhagic_dyscrasia_frequency')
 
     frequency['none'] = fuzzy.trimf(frequency.universe, [0, 0, 1])
