@@ -104,3 +104,13 @@ def get_ganglionic_hypertrophy_antecedents():
     frequency['intense'] = fuzzy.gaussmf(frequency.universe, 10, 1.5)
 
     return frequency
+
+
+def get_hemorrhagic_dyscrasia():
+    frequency = control.Antecedent(arange(0, 10, .1), 'hemorrhagic_dyscrasia_frequency')
+
+    frequency['none'] = fuzzy.trimf(frequency.universe, [0, 0, 1])
+    frequency['mild'] = fuzzy.gaussmf(frequency.universe, 2.5, 1.5)
+    frequency['moderate'] = fuzzy.sigmf(frequency.universe, 3.5, .5)
+
+    return frequency
