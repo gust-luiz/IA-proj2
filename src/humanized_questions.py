@@ -19,7 +19,6 @@ def ask_about_melasma(medical_record):
 
         if resp == 'não':
             medical_record.input['melasma'] = 0
-            medical_record.input['melasma_occurence'] = 0
             return medical_record
 
         if resp == 'sim':
@@ -29,7 +28,6 @@ def ask_about_melasma(medical_record):
     resp = 7 - int(input())
 
     medical_record.input['melasma'] = resp
-    medical_record.input['melasma_occurence'] = randint(0, 10)
 
     return medical_record
 
