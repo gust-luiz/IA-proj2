@@ -104,3 +104,16 @@ def get_ganglionic_hypertrophy_antecedents():
     frequency['intense'] = fuzzy.gaussmf(frequency.universe, 10, 1.5)
 
     return frequency
+
+
+def get_neurological_damage_antecedents():
+    occurence = control.Antecedent(arange(0, 1, 1), 'neurological_damage')
+    newborn = control.Antecedent(arange(0, 1, .1), 'neurological_damage_newborn')
+
+    occurence['no'] = fuzzy.gaussmf(occurence.universe, 0, .25)
+    occurence['yes'] = fuzzy.gaussmf(occurence.universe, 1, .25)
+
+    newborn['no'] = fuzzy.gaussmf(newborn.universe, 0, .25)
+    newborn['yes'] = fuzzy.gaussmf(newborn.universe, 1, .25)
+
+    return occurence, newborn
