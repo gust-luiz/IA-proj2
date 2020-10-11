@@ -255,20 +255,15 @@ def ask_about_hemorrhagic_dyscrasia(medical_record, section):
 
 
 def ask_about_neurological_damage(medical_record, section):
-    print('''Saberia informar se o paciente possui alguma
-    sequela neurológica ou se já tem o resultado de algum exame? (sim/não)''')
-
-    if input() == 'não':
+    if wait_valid_answer('''Saberia informar se há alguma
+        sequela neurológica ou se já tem o resultado de algum exame?''',
+        ['tem', 'não']
+    ) == 'não':
         medical_record.input['neurological_damage'] = 0
-        return medical_record
 
-    while True:
-        print('Já que pode nos informar, o paciente tem ou não tem alguma sequela neurológica? (tem/não)')
-        resp = input()
+        print(NO_SYMPTOMS_MSG.format(section))
 
-        if resp not in ['tem', 'não']:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
-            continue
+    else:
+        medical_record.input['neurological_damage'] = 1
 
-        medical_record.input['neurological_damage'] = 1 if resp == 'tem' else 0
-        return medical_record
+    return medical_record
