@@ -1,12 +1,12 @@
 from skfuzzy import control
 
 from humanized_questions import (ask_about_conjuctivitis, ask_about_fever,
+                                 ask_about_ganglionic_hypertrophy,
                                  ask_about_headache, ask_about_itch,
                                  ask_about_joint_pain, ask_about_melasma,
                                  ask_about_muscle_pain, ask_about_ganglionic_hypertrophy,
-                                 ask_about_hemorrhagic_dyscrasia)
+                                 ask_about_hemorrhagic_dyscrasia, ask_about_neurological_damage)
 from rules import all_rules
-from src.humanized_questions import ask_about_conjuctivitis
 from utils import inform_diagnosis
 
 
@@ -14,16 +14,21 @@ def run_system():
     aedes_aegypti_diagnosis = control.ControlSystem(all_rules)
     medical_record = control.ControlSystemSimulation(aedes_aegypti_diagnosis)
 
-    medical_record = ask_about_fever(medical_record)
-    medical_record = ask_about_melasma(medical_record)
-    medical_record = ask_about_muscle_pain(medical_record)
-    medical_record = ask_about_joint_pain(medical_record)
-    medical_record = ask_about_conjuctivitis(medical_record)
-    medical_record = ask_about_headache(medical_record)
-    medical_record = ask_about_itch(medical_record)
-    medical_record = ask_about_ganglionic_hypertrophy(medical_record)
-    medical_record = ask_about_hemorrhagic_dyscrasia(medical_record)
+    questions_to_ask = [
+        ask_about_fever,
+        ask_about_melasma,
+        ask_about_muscle_pain,
+        ask_about_joint_pain,
+        ask_about_conjuctivitis,
+        ask_about_headache,
+        ask_about_itch,
+        ask_about_ganglionic_hypertrophy,
+        ask_about_hemorrhagic_dyscrasia,
+        ask_about_neurological_damage,
+    ]
 
+    for questions in questions_to_ask:
+        medical_record = questions(medical_record)
 
     medical_record.compute()
 

@@ -144,3 +144,40 @@ def get_hemorrhagic_dyscrasia_consequent():
     hemorrhagic_dyscrasia['chikungunya'] = fuzzy.gaussmf(hemorrhagic_dyscrasia.universe, 2, 1.5)
 
     return hemorrhagic_dyscrasia
+
+    
+def get_neurological_damage_consequent():
+    neurological_damage = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    second_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 3.75)
+    third_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 6.25)
+    fourth_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 8.75)
+
+    neurological_damage['dengue'] = fuzzy.sigmf(neurological_damage.universe, 15.65, .2)
+    neurological_damage['dengue'] = [
+        v * neurological_damage['dengue'].mf[i]
+        for i, v in enumerate(second_portion)
+    ]  # rare
+    neurological_damage['zika'] = fuzzy.sigmf(neurological_damage.universe, 0, 0)
+    neurological_damage['zika'] = [
+        v * neurological_damage['zika'].mf[i]
+        for i, v in enumerate(third_portion)
+    ]  # rare, but more often than in the others
+    neurological_damage['chikungunya'] = fuzzy.sigmf(neurological_damage.universe, 15.65, .2)
+    neurological_damage['chikungunya'] = [
+        v * neurological_damage['chikungunya'].mf[i]
+        for i, v in enumerate(fourth_portion)
+    ] # rare, but often in newborn
+
+    neurological_damage['unidentified'] = list(map(lambda x: min(1, x), (
+        fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 1.25)
+        + second_portion
+        + third_portion
+        + fourth_portion
+    )))
+    neurological_damage['unidentified'] = [
+        max(0, v - neurological_damage['dengue'].mf[i] - neurological_damage['zika'].mf[i] - neurological_damage['chikungunya'].mf[i])
+        for i, v in enumerate(neurological_damage['unidentified'].mf)
+    ]
+
+    return neurological_damage
