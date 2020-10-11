@@ -239,16 +239,17 @@ def ask_about_ganglionic_hypertrophy(medical_record, section):
 
 
 def ask_about_hemorrhagic_dyscrasia(medical_record, section):
-    print('Percebeu o aparecimento de sangramentos sob a pele, durante a última semana?')
-    while True:
-        print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
-        resp = int(input())
+    medical_record.input['hemorrhagic_dyscrasia_frequency'] = wait_valid_answer(
+        '''Em algum momento nesta última semana, notou ou alguém notou se teve algum sangramento espontâneo,
+        sem motivo aparente?
+        numa escala de "não sangrou" a "constantemente"''',
+        min_value=0,
+        max_value=10,
+        cast_to=int
+    )
 
-        if resp >= 0 and resp <= 10:
-            medical_record.input['hemorrhagic_dyscrasia_frequency'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+    if not medical_record.input['hemorrhagic_dyscrasia_frequency']:
+        print(NO_SYMPTOMS_MSG.format(section))
 
     return medical_record
 

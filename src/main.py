@@ -26,7 +26,7 @@ def run_system():
         ('dor de cabeça', ask_about_headache),
         ('coceira', ask_about_itch),
         ('inchaço na região do pescoço', ask_about_ganglionic_hypertrophy),
-        ('', ask_about_hemorrhagic_dyscrasia),
+        ('sangramento espontâneo', ask_about_hemorrhagic_dyscrasia),
         ('sequelas neurológica', ask_about_neurological_damage),
     ]
 
