@@ -1,9 +1,9 @@
 from collections import OrderedDict
+from os import system
 
 from skfuzzy import interp_membership
 
 from consequents import disease
-from os import system
 
 
 class Patient:

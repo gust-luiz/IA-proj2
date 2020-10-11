@@ -136,6 +136,16 @@ def get_ganglionic_hypertrophy_consequent():
     return ganglionic_hypertrophy
 
 
+def get_hemorrhagic_dyscrasia_consequent():
+    hemorrhagic_dyscrasia = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    hemorrhagic_dyscrasia['dengue'] = fuzzy.sigmf(hemorrhagic_dyscrasia.universe, 3.5, .5)
+    hemorrhagic_dyscrasia['zika'] = fuzzy.gaussmf(hemorrhagic_dyscrasia.universe, 0, .5)
+    hemorrhagic_dyscrasia['chikungunya'] = fuzzy.gaussmf(hemorrhagic_dyscrasia.universe, 2, 1.5)
+
+    return hemorrhagic_dyscrasia
+
+    
 def get_neurological_damage_consequent():
     neurological_damage = control.Consequent(arange(0, 11, .1), 'diagnosis')
 

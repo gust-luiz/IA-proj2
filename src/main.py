@@ -1,19 +1,22 @@
-import sys
 from skfuzzy import control
 
 from humanized_questions import (ask_about_conjuctivitis, ask_about_fever,
                                  ask_about_ganglionic_hypertrophy,
-                                 ask_about_headache, ask_about_itch,
-                                 ask_about_joint_pain, ask_about_melasma,
-                                 ask_about_muscle_pain,
-                                 ask_about_neurological_damage, initial_questionary)
+                                 ask_about_headache,
+                                 ask_about_hemorrhagic_dyscrasia,
+                                 ask_about_itch, ask_about_joint_pain,
+                                 ask_about_melasma, ask_about_muscle_pain,
+                                 ask_about_neurological_damage,
+                                 initial_questionary)
 from rules import all_rules
-from utils import inform_diagnosis, wait_any_key_press, get_consultation_section_title
+from utils import (get_consultation_section_title, inform_diagnosis,
+                   wait_any_key_press)
 
 
 def run_system():
     aedes_aegypti_diagnosis = control.ControlSystem(all_rules)
     medical_record = control.ControlSystemSimulation(aedes_aegypti_diagnosis)
+
     questions_to_ask = [
         ('febre', ask_about_fever),
         ('manchas na pele', ask_about_melasma),
@@ -23,6 +26,7 @@ def run_system():
         ('dor de cabeça', ask_about_headache),
         ('coceira', ask_about_itch),
         ('inchaço na região do pescoço', ask_about_ganglionic_hypertrophy),
+        ('', ask_about_hemorrhagic_dyscrasia),
         ('sequelas neurológica', ask_about_neurological_damage),
     ]
 
