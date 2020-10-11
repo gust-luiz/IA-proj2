@@ -127,9 +127,33 @@ def get_headache_rules():
     ]
 
 
+def get_conjunctivitis_rules():
+    from consequents import get_conjunctivitis_consequent
+    from antecedents import get_conjunctivitis_antecedents
+
+    from_conjunctivitis = get_conjunctivitis_consequent()
+    occurence = get_conjunctivitis_antecedents()
+
+    return [
+        control.Rule(
+            occurence['no'],
+            from_conjunctivitis['dengue']
+        ),
+        control.Rule(
+            occurence['yes'],
+            from_conjunctivitis['zika']
+        ),
+        control.Rule(
+            occurence['yes'],
+            from_conjunctivitis['chikungunya']
+        ),
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
 all_rules.extend(get_muscle_pain_rules())
 all_rules.extend(get_joint_pain_rules())
 all_rules.extend(get_headache_rules())
+all_rules.extend(get_conjunctivitis_rules())
