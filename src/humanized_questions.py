@@ -165,13 +165,12 @@ def ask_about_joint_pain(medical_record, section):
 
 
 def ask_about_conjuctivitis(medical_record, section):
-    resp = wait_valid_answer(
+    if wait_valid_answer(
         'Em algum momento nesta última semana, teve conjuntivite?',
         ['sim', 'não']
-    )
-
-    if resp == 'não':
+    ) == 'não':
         print(NO_SYMPTOMS_MSG.format(section))
+
         medical_record.input['conjunctivitis'] = 0
     else:
         medical_record.input['conjunctivitis'] = 1
@@ -180,42 +179,28 @@ def ask_about_conjuctivitis(medical_record, section):
 
 
 def ask_about_headache(medical_record, section):
-    while True:
-        print('Sentiu dor de cabeça durante a última semana? (sim/não)')
-        resp = input()
+    if wait_valid_answer('Nesta última semana, sentiu dor de cabeça?', ['sim', 'não']) == 'não':
+        medical_record.input['headache_frequency'] = 0
+        medical_record.input['headache_intensity'] = 0
 
-        if resp == 'não':
-            medical_record.input['headache_frequency'] = 0
-            medical_record.input['headache_intensity'] = 0
-            return medical_record
+        print(NO_SYMPTOMS_MSG.format(section))
 
-        if resp == 'sim':
-            break
+        return medical_record
 
-    print('Já que teve dores de cabeça, infelizmente, poderia dizer se doia com frequência?')
+    print('Já que teve dores de cabeça,')
+    medical_record.input['headache_frequency'] = wait_valid_answer(
+        'Consegui dizer se doia com frequência, numa escala de "pouco frequente" a "muito frequente"?',
+        min_value=1,
+        max_value=10,
+        cast_to=int
+    )
 
-    while True:
-        print('Numa escala de 1 (pouco frequente) a 10 (muito frequente), por favor')
-        resp = int(input())
-
-        if resp >= 1 and resp <= 10:
-            medical_record.input['headache_frequency'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
-
-    print('Obrigado! Prosseguindo, então')
-    print('E quanto à intensidade da dor de cabeça, doia muito?')
-
-    while True:
-        print('Numa escala de 1 (bastante fraca) a 10 (muito forte), por favor')
-        resp = int(input())
-
-        if resp >= 1 and resp <= 10:
-            medical_record.input['headache_intensity'] = resp
-            break
-        else:
-            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+    medical_record.input['headache_intensity'] = wait_valid_answer(
+        'E qual era a intensidade, numa escala de "bastante fraca" a "muito forte"?',
+        min_value=1,
+        max_value=10,
+        cast_to=int
+    )
 
     return medical_record
 
