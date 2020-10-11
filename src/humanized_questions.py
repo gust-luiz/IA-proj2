@@ -210,25 +210,28 @@ def ask_about_itch(medical_record):
 
 
 def ask_about_ganglionic_hypertrophy(medical_record):
+    print('Percebeu o aparecimento de caroços (ínguas), principalmente na região do pescoço, durante a última semana?')
     while True:
-        print('Observou o aparecimento de caroços (ínguas), principalmente na região do pescoço, durante a última semana? (sim/não)')
-        resp = input()
-
-        if resp == 'não':
-            medical_record.input['ganglionic_hypertrophy_frequency'] = 0
-            return medical_record
-
-        if resp == 'sim':
-            break
-
-    print('Já que notou o aparecimento de caroços (ínguas), poderia dizer com que frequência apareciam?')
-
-    while True:
-        print('Numa escala de 1 (poucas vezes) a 10 (constantemente), por favor')
+        print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
         resp = int(input())
 
-        if resp >= 1 and resp <= 10:
+        if resp >= 0 and resp <= 10:
             medical_record.input['ganglionic_hypertrophy_frequency'] = resp
+            break
+        else:
+            print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
+
+    return medical_record
+
+
+def ask_about_hemorrhagic_dyscrasia(medical_record):
+    print('Percebeu o aparecimento de sangramentos sob a pele, durante a última semana?')
+    while True:
+        print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
+        resp = int(input())
+
+        if resp >= 0 and resp <= 10:
+            medical_record.input['hemorrhagic_dyscrasia_frequency'] = resp
             break
         else:
             print('Infelizmente, esta resposta não pode ser utilizada pela gente...')
