@@ -114,6 +114,8 @@ def get_hemorrhagic_dyscrasia():
     frequency['moderate'] = fuzzy.sigmf(frequency.universe, 3.5, .5)
 
     return frequency
+
+    
 def get_neurological_damage_antecedents():
     occurence = control.Antecedent(arange(0, 1, 1), 'neurological_damage')
     newborn = control.Antecedent(arange(0, 1, .1), 'neurological_damage_newborn')
