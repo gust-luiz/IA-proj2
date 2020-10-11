@@ -134,3 +134,38 @@ def get_ganglionic_hypertrophy_consequent():
     ganglionic_hypertrophy['chikungunya'] = fuzzy.gaussmf(ganglionic_hypertrophy.universe, 5, 1.5)
 
     return ganglionic_hypertrophy
+
+
+def get_neurological_damage_consequent():
+    conjunctivitis = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    second_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 3.75)
+    third_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 6.25)
+    fourth_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 8.75)
+
+    conjunctivitis['dengue'] = fuzzy.sigmf(conjunctivitis.universe, 15.65, .2)
+    conjunctivitis['dengue'] = [
+        v * conjunctivitis['dengue'].mf[i]
+        for i, v in enumerate(second_portion)
+    ]  # rare
+    conjunctivitis['zika'] = fuzzy.sigmf(conjunctivitis.universe, 0, 0)
+    conjunctivitis['zika'] = [
+        v * conjunctivitis['zika'].mf[i]
+        for i, v in enumerate(third_portion)
+    ]  # rare, but more often than in the others
+    conjunctivitis['chikungunya'] = fuzzy.sigmf(conjunctivitis.universe, 15.65, .2)
+    conjunctivitis['chikungunya'] = [
+        v * conjunctivitis['chikungunya'].mf[i]
+        for i, v in enumerate(fourth_portion)
+    ] # rare, but often in newborn
+
+    conjunctivitis['unidentified'] = list(map(lambda x: min(1, x), (
+        fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 1.25)
+        + second_portion
+        + third_portion
+        + fourth_portion
+    )))
+    conjunctivitis['unidentified'] = [
+        max(0, v - conjunctivitis['dengue'].mf[i] - conjunctivitis['zika'].mf[i] - conjunctivitis['chikungunya'].mf[i])
+        for i, v in enumerate(conjunctivitis['unidentified'].mf)
+    ]

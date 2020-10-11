@@ -194,6 +194,29 @@ def get_ganglionic_hypertrophy_rules():
     ]
 
 
+def get_neurological_damage_rules():
+    from consequents import get_neurological_damage_consequent
+    from antecedents import get_neurological_damage_antecedents
+
+    from_neurological_damage = get_neurological_damage_consequent()
+    occurence, newborn = get_neurological_damage_antecedents()
+
+    return [
+        control.Rule(
+            occurence['yes'],
+            from_neurological_damage['dengue']
+        ),
+        control.Rule(
+            occurence['yes'],
+            from_neurological_damage['zika']
+        ),
+        control.Rule(
+            occurence['yes'] & newborn['yes'],
+            from_neurological_damage['chikungunya']
+        ),
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
@@ -203,3 +226,4 @@ all_rules.extend(get_conjunctivitis_rules())
 all_rules.extend(get_headache_rules())
 all_rules.extend(get_itch_rules())
 all_rules.extend(get_ganglionic_hypertrophy_rules())
+all_rules.extend(get_neurological_damage_rules())
