@@ -84,3 +84,13 @@ def get_conjunctivitis_antecedents():
     occurence['yes'] = fuzzy.gaussmf(occurence.universe, 1, .25)
 
     return occurence
+
+
+def get_itch_antecedents():
+    itch_intensity = control.Antecedent(arange(0, 10, .1), 'itch_intensity')
+
+    itch_intensity['mild'] = fuzzy.gaussmf(itch_intensity.universe, 0, 1.5)
+    itch_intensity['moderate'] = fuzzy.gaussmf(itch_intensity.universe, 5, .75)
+    itch_intensity['intense'] = fuzzy.gaussmf(itch_intensity.universe, 10, 1.5)
+
+    return itch_intensity

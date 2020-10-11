@@ -56,7 +56,7 @@ def get_muscle_pain_rules():
 
     return [
         control.Rule(
-            frequency['low'],
+            frequency['high'],
             disease['dengue']
         ),
         control.Rule(
@@ -64,7 +64,7 @@ def get_muscle_pain_rules():
             disease['zika']
         ),
         control.Rule(
-            frequency['high'],
+            frequency['low'],
             disease['chikungunya']
         )
     ]
@@ -150,6 +150,28 @@ def get_conjunctivitis_rules():
     ]
 
 
+def get_itch_rules():
+    from consequents import disease
+    from antecedents import get_itch_antecedents
+
+    intensity = get_itch_antecedents()
+
+    return [
+        control.Rule(
+            intensity['mild'],
+            disease['dengue']
+        ),
+        control.Rule(
+            (intensity['moderate'] | intensity['intense']),
+            disease['zika']
+        ),
+        control.Rule(
+            intensity['mild'],
+            disease['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
@@ -157,3 +179,4 @@ all_rules.extend(get_muscle_pain_rules())
 all_rules.extend(get_joint_pain_rules())
 all_rules.extend(get_headache_rules())
 all_rules.extend(get_conjunctivitis_rules())
+all_rules.extend(get_itch_rules())
