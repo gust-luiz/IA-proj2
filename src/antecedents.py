@@ -75,3 +75,12 @@ def get_headache_antecedents():
     headache_intensity['high'] = fuzzy.gaussmf(headache_intensity.universe, 10, 1.5)
 
     return headache_frequency, headache_intensity
+
+
+def get_conjunctivitis_antecedents():
+    occurence = control.Antecedent(arange(0, 1, 1), 'conjunctivitis')
+
+    occurence['no'] = fuzzy.gaussmf(occurence.universe, 0, .25)
+    occurence['yes'] = fuzzy.gaussmf(occurence.universe, 1, .25)
+
+    return occurence
