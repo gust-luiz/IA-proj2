@@ -194,6 +194,28 @@ def get_ganglionic_hypertrophy_rules():
     ]
 
 
+def get_hemorrhagic_dyscrasia_rules():
+    from consequents import disease
+    from antecedents import get_hemorrhagic_dyscrasia_antecedents
+
+    frequency = get_hemorrhagic_dyscrasia_antecedents()
+
+    return [
+        control.Rule(
+            frequency['moderate'],
+            disease['dengue']
+        ),
+        control.Rule(
+            frequency['none'],
+            disease['zika']
+        ),
+        control.Rule(
+            frequency['mild'],
+            disease['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
@@ -203,3 +225,4 @@ all_rules.extend(get_conjunctivitis_rules())
 all_rules.extend(get_headache_rules())
 all_rules.extend(get_itch_rules())
 all_rules.extend(get_ganglionic_hypertrophy_rules())
+all_rules.extend(get_hemorrhagic_dyscrasia_rules())
