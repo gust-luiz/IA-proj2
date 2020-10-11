@@ -35,13 +35,13 @@ def run_system():
     for section, questions in questions_to_ask:
         get_consultation_section_title(patient, section)
 
-        medical_record = questions(medical_record)
+        medical_record = questions(medical_record, section)
 
         wait_any_key_press()
 
     medical_record.compute()
 
-    inform_diagnosis(medical_record.output['doenças'])
+    inform_diagnosis(medical_record.output['diagnosis'])
 
 
 if __name__ == '__main__':

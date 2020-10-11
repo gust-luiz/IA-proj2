@@ -71,7 +71,10 @@ def wait_valid_answer(question, valid_answers=None, min_value=None, max_value=No
 
 
 def wait_any_key_press(msg=''):
-    input(msg or 'Aperte ENTER para prosseguirmos...')
+    if msg:
+        print(msg, end='\n\n')
+
+    input('Aperte ENTER para prosseguirmos...')
 
 
 def get_consultation_section_title(patient, section):

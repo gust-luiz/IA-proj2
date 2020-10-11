@@ -2,6 +2,8 @@ from os import system
 
 from utils import Patient, wait_any_key_press, wait_valid_answer
 
+NO_SYMPTOMS_MSG = 'Ainda bem que não teve {}! Menos um sinal de problemas, não é mesmo?'
+
 
 def initial_questionary(medical_record):
     system('clear')
@@ -37,22 +39,21 @@ def initial_questionary(medical_record):
 
     medical_record.input['neurological_damage_newborn'] = int(not patient.age)
 
-    print('\nObrigado, podemos começar a consulta!')
-    wait_any_key_press()
+    wait_any_key_press('\nObrigado, podemos começar a consulta!')
 
     return patient, medical_record
 
 
-def ask_about_fever(medical_record):
+def ask_about_fever(medical_record, section):
     if wait_valid_answer('Em algum momento nesta última semana, sentiu febre?', ['sim', 'não']) == 'não':
         medical_record.input['body_temperature'] = 36.5
         medical_record.input['fever_duration'] = 0
 
-        print('Ainda bem que não teve, menos um sinal de problemas, não é mesmo?')
+        print(NO_SYMPTOMS_MSG.format(section))
 
         return medical_record
 
-    print('Já que teve febre nesta última semana')
+    print('Já que teve febre nesta última semana,')
     medical_record.input['body_temperature'] = wait_valid_answer(
         'Poderia nos informar quanto estava sua temperatura quando foi aferida, medida, no termômetro?',
         min_value=36.5,
@@ -60,7 +61,7 @@ def ask_about_fever(medical_record):
         cast_to=float
     )
 
-    print('Entendi.')
+    print('Entendi...')
     medical_record.input['fever_duration'] = wait_valid_answer(
         'E poderia nos informar por quantos dias seguidos esteve com febre?',
         min_value=0,
@@ -71,27 +72,26 @@ def ask_about_fever(medical_record):
     return medical_record
 
 
-def ask_about_melasma(medical_record):
-    while True:
-        print('Apareceram algumas manchas na sua pele na última semana? (sim/não)')
-        resp = input()
+def ask_about_melasma(medical_record, section):
+    if wait_valid_answer('Em algum momento nesta última semana, apareceram manchas na pele?', ['sim', 'não']) == 'não':
+        medical_record.input['melasma'] = 0
 
-        if resp == 'não':
-            medical_record.input['melasma'] = 0
-            return medical_record
+        print(NO_SYMPTOMS_MSG.format(section))
 
-        if resp == 'sim':
-            break
+        return medical_record
 
-    print('Saberia dizer há quantos dias elas apareceram?')
-    resp = 7 - int(input())
-
-    medical_record.input['melasma'] = resp
+    print('Então, já que elas apareceram,')
+    medical_record.input['melasma'] = 7 - wait_valid_answer(
+        'Poderia nos informar há quantos dias elas apareceram?',
+        min_value=0,
+        max_value=7,
+        cast_to=int
+    )
 
     return medical_record
 
 
-def ask_about_muscle_pain(medical_record):
+def ask_about_muscle_pain(medical_record, section):
     while True:
         print('Sentiu dor muscular durante a última semana? (sim/não)')
         resp = input()
@@ -118,7 +118,7 @@ def ask_about_muscle_pain(medical_record):
     return medical_record
 
 
-def ask_about_joint_pain(medical_record):
+def ask_about_joint_pain(medical_record, section):
     while True:
         print('Sentiu dor nas articulações durante a última semana? (sim/não)')
         resp = input()
@@ -192,7 +192,7 @@ def ask_about_joint_pain(medical_record):
     return medical_record
 
 
-def ask_about_conjuctivitis(medical_record):
+def ask_about_conjuctivitis(medical_record, section):
     print('Sabe informar se estava com conjuntivite? (sim/não)')
     resp = input()
 
@@ -201,7 +201,7 @@ def ask_about_conjuctivitis(medical_record):
     return medical_record
 
 
-def ask_about_headache(medical_record):
+def ask_about_headache(medical_record, section):
     while True:
         print('Sentiu dor de cabeça durante a última semana? (sim/não)')
         resp = input()
@@ -242,7 +242,7 @@ def ask_about_headache(medical_record):
     return medical_record
 
 
-def ask_about_itch(medical_record):
+def ask_about_itch(medical_record, section):
     while True:
         print('Sentiu coceira na pele durante a última semana? (sim/não)')
         resp = input()
@@ -269,7 +269,7 @@ def ask_about_itch(medical_record):
     return medical_record
 
 
-def ask_about_ganglionic_hypertrophy(medical_record):
+def ask_about_ganglionic_hypertrophy(medical_record, section):
     print('Percebeu o aparecimento de caroços (ínguas), principalmente na região do pescoço, durante a última semana?')
     while True:
         print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
@@ -284,7 +284,7 @@ def ask_about_ganglionic_hypertrophy(medical_record):
     return medical_record
 
 
-def ask_about_hemorrhagic_dyscrasia(medical_record):
+def ask_about_hemorrhagic_dyscrasia(medical_record, section):
     print('Percebeu o aparecimento de sangramentos sob a pele, durante a última semana?')
     while True:
         print('Numa escala de 0 (não apareceu) a 10 (constantemente), por favor')
@@ -299,7 +299,7 @@ def ask_about_hemorrhagic_dyscrasia(medical_record):
     return medical_record
 
 
-def ask_about_neurological_damage(medical_record):
+def ask_about_neurological_damage(medical_record, section):
     print('''Saberia informar se o paciente possui alguma
     sequela neurológica ou se já tem o resultado de algum exame? (sim/não)''')
 
