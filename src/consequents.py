@@ -137,35 +137,37 @@ def get_ganglionic_hypertrophy_consequent():
 
 
 def get_neurological_damage_consequent():
-    conjunctivitis = control.Consequent(arange(0, 11, .1), 'diagnosis')
+    neurological_damage = control.Consequent(arange(0, 11, .1), 'diagnosis')
 
-    second_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 3.75)
-    third_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 6.25)
-    fourth_portion = fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 8.75)
+    second_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 3.75)
+    third_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 6.25)
+    fourth_portion = fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 8.75)
 
-    conjunctivitis['dengue'] = fuzzy.sigmf(conjunctivitis.universe, 15.65, .2)
-    conjunctivitis['dengue'] = [
-        v * conjunctivitis['dengue'].mf[i]
+    neurological_damage['dengue'] = fuzzy.sigmf(neurological_damage.universe, 15.65, .2)
+    neurological_damage['dengue'] = [
+        v * neurological_damage['dengue'].mf[i]
         for i, v in enumerate(second_portion)
     ]  # rare
-    conjunctivitis['zika'] = fuzzy.sigmf(conjunctivitis.universe, 0, 0)
-    conjunctivitis['zika'] = [
-        v * conjunctivitis['zika'].mf[i]
+    neurological_damage['zika'] = fuzzy.sigmf(neurological_damage.universe, 0, 0)
+    neurological_damage['zika'] = [
+        v * neurological_damage['zika'].mf[i]
         for i, v in enumerate(third_portion)
     ]  # rare, but more often than in the others
-    conjunctivitis['chikungunya'] = fuzzy.sigmf(conjunctivitis.universe, 15.65, .2)
-    conjunctivitis['chikungunya'] = [
-        v * conjunctivitis['chikungunya'].mf[i]
+    neurological_damage['chikungunya'] = fuzzy.sigmf(neurological_damage.universe, 15.65, .2)
+    neurological_damage['chikungunya'] = [
+        v * neurological_damage['chikungunya'].mf[i]
         for i, v in enumerate(fourth_portion)
     ] # rare, but often in newborn
 
-    conjunctivitis['unidentified'] = list(map(lambda x: min(1, x), (
-        fuzzy.gbellmf(conjunctivitis.universe, 1.2, 5, 1.25)
+    neurological_damage['unidentified'] = list(map(lambda x: min(1, x), (
+        fuzzy.gbellmf(neurological_damage.universe, 1.2, 5, 1.25)
         + second_portion
         + third_portion
         + fourth_portion
     )))
-    conjunctivitis['unidentified'] = [
-        max(0, v - conjunctivitis['dengue'].mf[i] - conjunctivitis['zika'].mf[i] - conjunctivitis['chikungunya'].mf[i])
-        for i, v in enumerate(conjunctivitis['unidentified'].mf)
+    neurological_damage['unidentified'] = [
+        max(0, v - neurological_damage['dengue'].mf[i] - neurological_damage['zika'].mf[i] - neurological_damage['chikungunya'].mf[i])
+        for i, v in enumerate(neurological_damage['unidentified'].mf)
     ]
+
+    return neurological_damage
