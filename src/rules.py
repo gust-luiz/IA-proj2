@@ -172,6 +172,28 @@ def get_itch_rules():
     ]
 
 
+def get_ganglionic_hypertrophy_rules():
+    from consequents import disease
+    from antecedents import get_ganglionic_hypertrophy_antecedents
+
+    frequency = get_ganglionic_hypertrophy_antecedents()
+
+    return [
+        control.Rule(
+            frequency['mild'],
+            disease['dengue']
+        ),
+        control.Rule(
+            frequency['intense'],
+            disease['zika']
+        ),
+        control.Rule(
+            frequency['moderate'],
+            disease['chikungunya']
+        )
+    ]
+
+
 all_rules = []
 all_rules.extend(get_fever_rules())
 all_rules.extend(get_melasma_rules())
@@ -180,3 +202,4 @@ all_rules.extend(get_joint_pain_rules())
 all_rules.extend(get_conjunctivitis_rules())
 all_rules.extend(get_headache_rules())
 all_rules.extend(get_itch_rules())
+all_rules.extend(get_ganglionic_hypertrophy_rules())

@@ -120,7 +120,17 @@ def get_itch_consequent():
     itch = control.Consequent(arange(0, 11, .1), 'diagnosis')
 
     itch['dengue'] = fuzzy.gaussmf(itch.universe, 0, 1.5)
-    itch['zika'] = fuzzy.gaussmf(itch.universe, 5, 2.5)
-    itch['chikungunya'] = fuzzy.gaussmf(itch.universe, 5, 2.5)
+    itch['zika'] = fuzzy.gaussmf(itch.universe, 10, 2.5)
+    itch['chikungunya'] = fuzzy.gaussmf(itch.universe, 0, 1.5)
 
     return itch
+
+
+def get_ganglionic_hypertrophy_consequent():
+    ganglionic_hypertrophy = control.Consequent(arange(0, 11, .1), 'diagnosis')
+
+    ganglionic_hypertrophy['dengue'] = fuzzy.gaussmf(ganglionic_hypertrophy.universe, 0, 1.5)
+    ganglionic_hypertrophy['zika'] = fuzzy.gaussmf(ganglionic_hypertrophy.universe, 10, 1.5)
+    ganglionic_hypertrophy['chikungunya'] = fuzzy.gaussmf(ganglionic_hypertrophy.universe, 5, 1.5)
+
+    return ganglionic_hypertrophy
