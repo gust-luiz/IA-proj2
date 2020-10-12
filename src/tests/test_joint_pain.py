@@ -9,7 +9,7 @@ class TestJointPainDiagnosis(ReferenceDiagnosisTest):
     output = get_joint_pain_consequent()
 
     def setUp(self):
-        aedes_aegypti_diagnosis = control.ControlSystem(get_joint_pain_rules(False))
+        aedes_aegypti_diagnosis = control.ControlSystem(get_joint_pain_rules())
         self.medical_record = control.ControlSystemSimulation(aedes_aegypti_diagnosis)
 
     def test_should_be_dengue(self):

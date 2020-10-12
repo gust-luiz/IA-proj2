@@ -6,6 +6,7 @@ from src.consequents import COMMON_CONSEQUENT_NAME
 
 class ReferenceDiagnosisTest(TestCase):
     FOR_SURE_LEVEL = 60
+    common_consequent_name = COMMON_CONSEQUENT_NAME
     output = None
 
     def _get_diagnosis(self):
@@ -16,7 +17,6 @@ class ReferenceDiagnosisTest(TestCase):
             self.skipTest('Should have a "output" set')
 
         self.medical_record.compute()
-        print('value', self.medical_record.output[COMMON_CONSEQUENT_NAME])
 
         return order_diagnosis(self.output, self.medical_record.output[COMMON_CONSEQUENT_NAME])
 

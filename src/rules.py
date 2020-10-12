@@ -41,8 +41,6 @@ def get_melasma_rules():
             aedes_aegypti_disease['zika']
         ),
         control.Rule(
-            when_happened['beginning'] |
-            when_happened['middle'] |
             when_happened['ending'],
             aedes_aegypti_disease['chikungunya']
         ),

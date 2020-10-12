@@ -20,9 +20,9 @@ def get_fever_antecedents():
 def get_melasma_antecedents():
     when = control.Antecedent(arange(0, 7, .1), 'melasma')
 
-    when['beginning'] = fuzzy.gbellmf(when.universe, 2, 5, 0)
-    when['middle'] = fuzzy.gbellmf(when.universe, 1.2, 5, 3.5)
-    when['ending'] = fuzzy.gbellmf(when.universe, 2, 5, 7)
+    when['beginning'] = fuzzy.gbellmf(when.universe, 1.5, 5, 0)
+    when['middle'] = fuzzy.gbellmf(when.universe, .9, 5, 3.5)
+    when['ending'] = fuzzy.gbellmf(when.universe, 3, 3, 7)
 
     return when
 
