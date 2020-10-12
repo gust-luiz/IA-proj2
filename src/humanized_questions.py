@@ -189,7 +189,7 @@ def ask_about_headache(medical_record, section):
 
     print('Já que teve dores de cabeça,')
     medical_record.input['headache_frequency'] = wait_valid_answer(
-        'Consegui dizer se doia com frequência, numa escala de "pouco frequente" a "muito frequente"?',
+        'Consegue dizer se doia com frequência, numa escala de "pouco frequente" a "muito frequente"?',
         min_value=1,
         max_value=10,
         cast_to=int
