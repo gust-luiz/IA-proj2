@@ -63,7 +63,7 @@ def get_joint_pain_antecedents():
 
 
 def get_conjunctivitis_antecedents():
-    occurence = control.Antecedent(arange(0, 1, 1), 'conjunctivitis')
+    occurence = control.Antecedent(arange(0, 1.1, .1), 'conjunctivitis')
 
     occurence['no'] = fuzzy.gaussmf(occurence.universe, 0, .25)
     occurence['yes'] = fuzzy.gaussmf(occurence.universe, 1, .25)
@@ -117,8 +117,8 @@ def get_hemorrhagic_dyscrasia_antecedents():
 
 
 def get_neurological_damage_antecedents():
-    occurence = control.Antecedent(arange(0, 1, 1), 'neurological_damage')
-    newborn = control.Antecedent(arange(0, 1, .1), 'neurological_damage_newborn')
+    occurence = control.Antecedent(arange(0, 1.1, .1), 'neurological_damage')
+    newborn = control.Antecedent(arange(0, 1.1, .1), 'neurological_damage_newborn')
 
     occurence['no'] = fuzzy.gaussmf(occurence.universe, 0, .25)
     occurence['yes'] = fuzzy.gaussmf(occurence.universe, 1, .25)

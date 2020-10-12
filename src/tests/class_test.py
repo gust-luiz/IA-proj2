@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from src.utils import order_diagnosis
+from src.consequents import COMMON_CONSEQUENT_NAME
 
 
 class ReferenceDiagnosisTest(TestCase):
@@ -15,8 +16,9 @@ class ReferenceDiagnosisTest(TestCase):
             self.skipTest('Should have a "output" set')
 
         self.medical_record.compute()
+        print('value', self.medical_record.output[COMMON_CONSEQUENT_NAME])
 
-        return order_diagnosis(self.output, self.medical_record.output['diagnosis'])
+        return order_diagnosis(self.output, self.medical_record.output[COMMON_CONSEQUENT_NAME])
 
     def _get_best_diagnosis(self):
         return self._get_diagnosis()[0]

@@ -3,8 +3,6 @@ from os import system
 
 from skfuzzy import interp_membership
 
-from consequents import disease
-
 
 class Patient:
     name = ''
@@ -13,7 +11,8 @@ class Patient:
 
 
 def inform_diagnosis(result):
-    diagnosis = order_diagnosis(disease, result)
+    from consequent import get_fever_consequent
+    diagnosis = order_diagnosis(get_fever_consequent(), result)
 
     print()
     print('Então, pelo o que me foi informado acredito que esteja com:', diagnosis[0][0])
@@ -38,12 +37,13 @@ def order_diagnosis(disease, result):
 
 
 def wait_valid_answer(question, valid_answers=None, min_value=None, max_value=None, cast_to=None):
+    options = ''
+
     if valid_answers:
         options = '/'.join(valid_answers)
-    elif min_value:
-        options = ' - '.join([str(min_value), str(max_value) or 'inf'])
-    else:
-        options = ''
+
+    elif min_value is not None:
+        options = ' - '.join([str(min_value), str(max_value or '')])
 
     if options:
         options = f'({options})'

@@ -15,7 +15,7 @@ def initial_questionary(medical_record):
 
     print('\nDesculpe pela minha grosseria, nem perguntei o seu nome.')
     print('Como você se chama?')
-    patient.name = input()
+    patient.name = input().capitalize()
 
     print('\nÉ um prazer lhe atender,', patient.name, '!')
     print()
@@ -224,22 +224,24 @@ def ask_about_itch(medical_record, section):
 
 
 def ask_about_ganglionic_hypertrophy(medical_record, section):
-    medical_record.input['ganglionic_hypertrophy_frequency'] = wait_valid_answer(
+    resp = wait_valid_answer(
         '''Em algum momento nesta última semana, apareceu algum caroço ou inchaço perto do pescoço?
-        numa escala de "não apareceu" a "quase não tinha espaço livre"''',
+        numa escala de "não apareceu" a "quase não tinha espaço livre".''',
         min_value=0,
         max_value=10,
         cast_to=int
     )
 
-    if not medical_record.input['ganglionic_hypertrophy_frequency']:
+    if not resp:
         print(NO_SYMPTOMS_MSG.format(section))
+
+    medical_record.input['ganglionic_hypertrophy_frequency'] = resp
 
     return medical_record
 
 
 def ask_about_hemorrhagic_dyscrasia(medical_record, section):
-    medical_record.input['hemorrhagic_dyscrasia_frequency'] = wait_valid_answer(
+    resp = wait_valid_answer(
         '''Em algum momento nesta última semana, notou ou alguém notou se teve algum sangramento espontâneo,
         sem motivo aparente?
         numa escala de "não sangrou" a "constantemente"''',
@@ -248,8 +250,10 @@ def ask_about_hemorrhagic_dyscrasia(medical_record, section):
         cast_to=int
     )
 
-    if not medical_record.input['hemorrhagic_dyscrasia_frequency']:
+    if not resp:
         print(NO_SYMPTOMS_MSG.format(section))
+
+    medical_record.input['hemorrhagic_dyscrasia_frequency'] = resp
 
     return medical_record
 
